@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seu Carrinho | Kove Luxury Streetwear</title>
+  
+  <!-- Importação das fontes (Inter) -->
+  <link rel="preconnect" href="https://googleapis.com">
+  <link rel="preconnect" href="https://gstatic.com" crossorigin>
+  <link href="https://googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- CSS INTEGRADO -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #0b2219; /* Verde escuro característico da Kove */
+      color: #ffffff;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .cart-container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* Cabeçalho */
+    .cart-header {
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .brand-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .back-link {
+      display: inline-block;
+      color: #a49e97;
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      transition: color 0.2s ease;
+    }
+
+    .back-link:hover {
+      color: #bb5432;
+    }
+
+    /* Layout de duas colunas (Itens vs Resumo) */
+    .cart-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    @media (min-width: 992px) {
+      .cart-wrapper {
+        flex-direction: row;
+        align-items: flex-start;
+      }
+    }
+
+    /* Listagem de Produtos */
+    .cart-items {
+      flex: 2;
+      background-color: #122e23;
+      border-radius: 12px;
+      padding: 24px;
+      border: 1px solid #234739;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid #234739;
+      align-items: center;
+    }
+
+    .cart-item:first-child {
+      padding-top: 0;
+    }
+
+    .cart-item:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .item-img {
+      width: 90px;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .item-details {
+      flex: 1;
+    }
+
+    .item-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .item-desc {
+      color: #a49e97;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+    }
+
+    .item-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    /* Contador de Quantidade */
+    .qty-selector {
+      display: flex;
+      align-items: center;
+      background-color: #0b2219;
+      border: 1px solid #234739;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .qty-btn {
+      background: none;
+      border: none;
+      color: #ffffff;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.2s ease;
+    }
+
+    .qty-btn:hover {
+      background-color: #234739;
+    }
+
+    .qty-value {
+      width: 40px;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .item-price {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .btn-remove {
+      background: none;
+      border: none;
+      color: #a14324;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      font-weight: 600;
+      margin-top: 5px;
+    }
+
+    .btn-remove:hover {
+      text-decoration: underline;
+    }
+
+    /* Bloco de Resumo e Checkout */
+    .cart-summary {
+      flex: 1;
+      background-color: #122e23;
+      border-radius: 12px;
+      padding: 24px;
+      border: 1px solid #234739;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .summary-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      border-bottom: 1px solid #234739;
+      padding-bottom: 10px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      font-size: 0.95rem;
+      color: #d1cdc7;
+    }
+
+    .summary-row.total {
+      border-top: 1px solid #234739;
+      margin-top: 20px;
+      padding-top: 20px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    /* Cupom de Desconto */
+    .coupon-box {
+      display: flex;
+      gap: 8px;
+      margin: 20px 0;
+    }
+
+    .coupon-input {
+      flex: 1;
+      background-color: #0b2219;
+      border: 1px solid #234739;
+      border-radius: 6px;
+      padding: 10px 12px;
+      color: #ffffff;
+      outline: none;
+      font-size: 0.9rem;
+    }
+
+    .coupon-input:focus {
+      border-color: #bb5432;
+    }
+
+    .btn-coupon {
+      background-color: transparent;
+      border: 1px solid #234739;
+      color: #ffffff;
+      padding: 0 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .btn-coupon:hover {
+      background-color: #234739;
+    }
+
+    /* Botão de Finalização Laranja */
+    .btn-checkout {
+      width: 100%;
+      background-color: #bb5432; /* Laranja idêntico ao botão Cadastre-se */
+      color: #ffffff;
+      border: none;
+      padding: 16px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: background-color 0.2s ease;
+      margin-top: 10px;
+    }
+
+    .btn-checkout:hover {
+      background-color: #a14324;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cart-container">
+    
+    <header class="cart-header">
+      <a href="index.html" class="back-link">← Voltar para a loja</a>
+      <h1 class="brand-title">Seu Acervo</h1>
+    </header>
+
+    <div class="cart-wrapper">
+      
+      <!-- Coluna da Esquerda: Itens do Carrinho -->
+      <main class="cart-items">
+        
+        <!-- Item 1 (Moletom da sua página principal) -->
+        <article class="cart-item">
+          <img src="blusadescolada.jpg" alt="Moletom Essential Hoodie" class="item-img" />
+          <div class="item-details">
+            <h3 class="item-title">Moletom Essential Hoodie</h3>
+            <p class="item-desc">Tamanho: G | Cor: Concreto</p>
+            <div class="item-controls">
+              <div class="qty-selector">
+                <button class="qty-btn">-</button>
+                <div class="qty-value">1</div>
+                <button class="qty-btn">+</button>
+              </div>
+              <span class="item-price">R$ 399,00</span>
+            </div>
+            <button class="btn-remove">Remover</button>
+          </div>
+        </article>
+
+        <!-- Item 2 (Boné da sua página principal) -->
+        <article class="cart-item">
+          <img src="bone.jpg" alt="Boné Kove Origin" class="item-img" />
+          <div class="item-details">
+            <h3 class="item-title">Boné Kove Origin</h3>
+            <p class="item-desc">Tamanho: Único | Cor: Black Canvas</p>
+            <div class="item-controls">
+              <div class="qty-selector">
+                <button class="qty-btn">-</button>
+                <div class="qty-value">2</div>
+                <button class="qty-btn">+</button>
+              </div>
+              <span class="item-price">R$ 179,00</span>
+            </div>
+            <button class="btn-remove">Remover</button>
+          </div>
+        </article>
+
+      </main>
+
+      <!-- Coluna da Direita: Resumo Financeiro -->
+      <aside class="cart-summary">
+        <h2 class="summary-title">Resumo do Drop</h2>
+        
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span>R$ 578,00</span>
+        </div>
+        
+        <div class="summary-row">
+          <span>Frete</span>
+          <span style="color: #234739; font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">Grátis</span>
+        </div>
+
+        <div class="coupon-box">
+          <input type="text" class="coupon-input" placeholder="Cupom de desconto">
+          <button class="btn-coupon">Aplicar</button>
+        </div>
+
+        <div class="summary-row total">
+          <span>Total</span>
+          <span>R$ 578,00</span>
+        </div>
+
+        <button class="btn-checkout">Finalizar Pedido</button>
+      </aside>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

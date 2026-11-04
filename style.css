@@ -1,0 +1,693 @@
+/* ==========================================
+   1. RESET & VARIÁVEIS GLOBAIS
+   ========================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-dark: #042a18;         
+  --bg-card: #f2e5e2;
+  --text-main: #030303;
+  --text-muted: #6f2a2a;
+  --primary-gradient: linear-gradient(135deg, #7f3927,#7e3928); 
+  --primary-hover: #C25A3F; 
+  --radius-lg: 16px;
+  --radius-md: 10px; 
+  --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.08);
+}
+
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  background-color: #e0d0cc;;
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ==========================================
+   FORÇA BRUTA GLOBAL CONTRA O ROXO
+   ========================================== */
+a, 
+a:visited,
+.nav-links a, 
+.nav-links a:visited,
+.footer-links a,
+.footer-links a:visited,
+.btn-link,
+.btn-link:visited {
+  text-decoration: none !important;
+  color: #fffefe !important; /* Força cinza elegante em todos os links visitados */
+  transition: color 0.2s ease;
+}
+
+/* Mantém os textos dos botões sempre brancos */
+.btn-primary,
+.btn-secondary,
+.btn-secondary:visited,
+.escolha {
+  color: #fdfcfc !important;
+}
+
+/* Efeitos Hover para os links */
+.nav-links a:hover,
+.footer-links a:hover,
+.footer-col p:hover {
+  color: #ffffff !important;
+}
+
+/* ==========================================
+   2. CABEÇALHO & NAVBAR (CORRIGIDO)
+   ========================================== */
+.navbar {
+  background-color: var(--bg-dark);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 18px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  width: 100% !important;
+  box-sizing: border-box;
+}
+
+.nav-container {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+.logo-brand {
+  display: flex !important;
+  align-items: center !important;
+  text-decoration: none;
+}
+
+.logo-brand .Title {
+  font-family: "Gowun Batang", serif;
+  color: #ffffff !important;
+  font-weight: 700;
+  margin-left: 12px;
+  font-size: 1.3rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.brand-img {
+  height: 45px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* Solução definitiva: Empurra a navegação e tudo o que está depois dela para a direita */
+.nav-container nav {
+  margin-left: auto !important;
+  margin-right: 32px !important; /* Cria espaçamento entre o carrinho e o botão verde */
+}
+
+.nav-links {
+  display: flex !important;
+  flex-direction: row !important;
+  list-style: none !important;
+  gap: 32px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.nav-links a {
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.nav-actions {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+}
+
+.btn-primary {
+  background: var(--primary-gradient);
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  background: var(--primary-hover);
+  box-shadow: 0 8px 20px rgba(67, 198, 176, 0.4);
+}
+
+/* ==========================================
+   3. HERO SECTION
+   ========================================== */
+.hero-section {
+  background-color: var(--bg-dark);
+  color: #ffffff;
+  padding: 100px 0;
+}
+
+.hero-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+}
+
+.hero-text {
+  flex: 1;
+  max-width: 50%;
+  text-align: left;
+}
+
+.hero-text h1 {
+  font-family: "Gowun Batang", serif;
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.hero-text p {
+  font-size: 18px;
+  color: #94a3b8;
+  margin-bottom: 36px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+}
+
+.btn-large {
+  padding: 14px 32px;
+  font-size: 16px;
+}
+
+.btn-secondary {
+  background: rgba(86, 29, 29, 0.1);
+  padding: 14px 32px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.hero-preview {
+  flex: 1;
+  max-width: 100% !important; /* Libera espaço total para a fileira horizontal */
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 20px !important;       /* Espaçamento elegante entre as fotos */
+  background-color: transparent;
+  overflow: visible !important; /* Permite ver as três imagens sem cortar */
+  box-shadow: none !important;  /* Remove a sombra antiga do container pai */
+  border: none !important;      /* Remove a borda antiga do container pai */
+}
+.hero-preview img {
+  width: calc(40.33% - 2px) !important; /* Divide a tela por 3 descontando o espaçamento */
+  height: auto;
+  display: block;
+  border-radius: var(--radius-lg);       /* Aplica os cantos arredondados em cada foto */
+  border: 1px solid rgba(255, 255, 255, 0.15); /* Coloca a borda fina em cada peça */
+  box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.5); /* Adiciona sombra individual */
+     margin-right: 5px;
+}
+.img-propaganda img {
+    width: calc(33.33% - 14px) !important; /* Divide a tela por 3 descontando o espaçamento */
+  height: auto;
+  display: block;
+  border-radius: var(--radius-lg);     
+  border: 1px solid rgba(255, 255, 255, 0.15); 
+  box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.5); 
+   display: block;
+  margin-left: auto;
+   float: right;
+  margin-top: -280px;
+   margin-right: 200px;
+}
+
+/* ==========================================================================
+   ROTULO DE CATÁLOGOS (CATEGORIAS EM CÍRCULOS)
+   ========================================================================== */
+
+/* Container geral do catálogo */
+.catalog-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;          /* Espaçamento entre os itens */
+  margin-bottom: 50px; /* Distância até o título "Favoritos da Comunidade" */
+  flex-wrap: wrap;     /* Permite que quebre a linha em telas de celular */
+}
+
+/* Item individual do catálogo (ícone + texto) */
+.catalog-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+/* Efeito ao passar o mouse na categoria */
+.catalog-item:hover {
+  transform: translateY(-4px);
+}
+
+/* Círculo do ícone */
+.catalog-icon {
+  width: 90px;        /* Tamanho do círculo */
+  height: 90px;
+  border-radius: 50%; /* Garante que fique 100% redondo */
+  overflow: hidden;   /* Recorta a imagem para o formato circular */
+  border: 2px solid #e2e8f0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Imagem dentro do círculo */
+.catalog-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ajusta a foto para preencher o círculo sem distorcer */
+}
+
+/* Linha de destaque no círculo quando passa o mouse */
+.catalog-item:hover .catalog-icon {
+  border-color: #1e293b; /* Borda fica na cor escura da marca */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Texto abaixo do círculo */
+.catalog-item span {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #1e293b;
+  transition: color 0.2s ease;
+}
+
+.catalog-item:hover span {
+  color: #0f172a;
+}
+
+
+/* ==========================================
+   4. SEÇÃO DE RECURSOS & PREÇOS
+   ========================================== */
+.features-section {
+  padding: 100px 0;
+}
+
+.section-title {
+  font-family: "Gowun Batang", serif;
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.section-title h2 {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 80px;
+}
+
+.card-feature {
+  background-color: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 36px 28px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid #e2e8f0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+}
+
+.card-feature:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 35px -5px rgba(0, 0, 0, 0.12);
+}
+
+.card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 24px;
+}
+
+.icon-purple {
+  background: #f0fdf4;
+  color: #0f473e;
+}
+
+.icon-blue {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.icon-green {
+  background: #e6f4f2;
+  color: #145c51;
+}
+
+/* Ajuste na Grid e nos Cards Ativos para alinhar os botões */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.card-feature {
+  background-color: var(--bg-card, #ffffff);
+  border-radius: var(--radius-lg, 12px);
+  padding: 24px;
+  border: 1px solid #e2e8f0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  /* Flexbox para empurrar o botão de compra sempre para o final do card */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Efeito Hover nos cards ativos */
+.card-feature:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 35px -5px rgba(0, 0, 0, 0.1);
+}
+
+.card-feature .brand-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.card-feature h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  color: #1e293b;
+}
+
+.card-feature p {
+  font-size: 15px;
+  color: #64748b;
+  margin: 0 0 20px 0;
+  line-height: 1.5;
+  flex-grow: 1; /* Faz o texto ocupar o espaço necessário e alinhar os botões */
+}
+
+/* NOVO BOTÃO: Comprar Agora (Estilo Streetwear de Luxo) */
+.btn-comprar {
+  width: 100%;
+  padding: 14px 24px;
+  background-color: #1e293b; /* Fundo preto/escuro elegante */
+  color: #ffffff;            /* Texto branco */
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+/* Efeito ao passar o mouse no botão de compra */
+.btn-comprar:hover {
+  background-color: #0f172a; /* Escurece levemente */
+}
+
+.btn-comprar:active {
+  transform: scale(0.98); /* Efeito de clique */
+}
+
+/* Área de Preço Customizada */
+.pricing-container {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.card-4 {
+  font-family: "Gowun Batang", serif;
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 24px;
+}
+
+.plano {
+  color: #145c51;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.preço {
+  font-size: 42px;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 16px;
+  font-family: sans-serif;
+}
+
+.card-in-4 p {
+  margin: 12px 0;
+  font-size: 16px;
+}
+/* ==========================================================================
+   ESTILIZAÇÃO DO CARD INDISPONÍVEL E BOTÃO (KOVE STREETWEAR)
+   ========================================================================== */
+
+/* 1. Estrutura do Card */
+.card-indisponivel {
+  background-color: var(--bg-card, #ffffff);
+  border-radius: var(--radius-lg, 12px);
+  padding: 36px 28px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 20px 35px -5px rgba(0, 0, 0, 0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform: translateY(-8px); /* Mantém o comportamento de elevação do seu código */
+  color: var(--text-muted, #64748b);
+  font-size: 15px;
+  margin-bottom: 12px;
+
+  /* Alinhamento flexível para empurrar o botão sempre para o rodapé do card */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* 2. Imagens internas do card */
+.card-indisponivel .brand-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  filter: grayscale(80%); /* Deixa a imagem do produto cinzenta por estar indisponível */
+  opacity: 0.7;
+}
+
+/* 3. Título interno */
+.card-indisponivel h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 8px 0;
+}
+
+/* 4. Parágrafo descritivo */
+.card-indisponivel p {
+  margin: 0 0 20px 0;
+  line-height: 1.5;
+}
+
+/* 5. Botão de Cadastro Indisponível */
+.btn-indisponivel {
+  width: 100%;
+  padding: 14px 24px;
+  background-color: #cbd5e1; /* Cor cinza fosco de desativado */
+  color: #94a3b8;            /* Texto cinza apagado para baixo contraste */
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;        /* Arredondamento elegante padrão streetwear */
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase; /* Caixa alta combinando com o botão "Comprar agora" */
+  letter-spacing: 0.5px;
+  cursor: not-allowed;       /* Altera o ponteiro para o símbolo de proibido (🚫) */
+  transition: background-color 0.2s ease;
+}
+
+
+
+
+.escolha {
+  margin-top: 24px;
+  width: 100%;
+  background: var(--primary-gradient);
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.escolha:hover {
+  background: var(--primary-hover);
+}
+/* incrementos */
+
+.carrossel-snap {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  max-width: 600px;
+  height: 300px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory; /* Travamento automático nativo */
+  scroll-behavior: smooth;
+  border-radius: 16px;
+}
+
+.item-snap {
+  flex: 0 0 100%;
+  height: 100%;
+  scroll-snap-align: center;
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.item-snap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ==========================================
+   5. RODAPÉ
+   ========================================== */
+.footer {
+  background-color: var(--bg-dark);
+  color: #94a3b8;
+  padding: 60px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 14px;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.footer-brand {
+  max-width: 300px;
+}
+
+.footer-links {
+  display: flex;
+  list-style: none;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.footer-grid-links {
+  display: flex;
+  gap: 48px;
+}
+
+.footer-col strong {
+  display: block;
+  color: #ffffff;
+  margin-bottom: 16px;
+  font-size: 15px;
+}
+
+.footer-col p {
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.footer-col p:hover {
+  color: #ffffff;
+} 
+
+/* ==========================================
+   6. RESPONSIVIDADE (MOBILE)
+   ========================================== */
+@media (max-width: 900px) {
+  .hero-container {
+    flex-direction: column;
+    text-align: center; 
+  }
+  .hero-text {
+    max-width: 100%;
+  }
+  .hero-text h1 {
+    font-size: 36px;
+  }
+  .hero-buttons {
+    justify-content: center;
+  }
+  .hero-preview {
+    max-width: 100%;
+  }
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+  .footer-container {
+    flex-direction: column;
+  }
+  .footer-grid-links {
+    grid-template-columns: repeat(2, 1fr);
+    display: grid;
+    gap: 32px;
+    width: 100%;
+  }
+}
