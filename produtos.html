@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo de Produtos | Kove Luxury Streetwear</title>
+  
+  <!-- Importação das fontes (Inter) -->
+  <link rel="preconnect" href="https://googleapis.com">
+  <link rel="preconnect" href="https://gstatic.com" crossorigin>
+  <link href="https://googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- CSS INTEGRADO -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #0b2219; /* Verde escuro padrão da marca */
+      color: #ffffff;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .catalog-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Cabeçalho do Catálogo */
+    .catalog-header {
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .brand-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .back-link {
+      display: inline-block;
+      color: #a49e97;
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 25px;
+      transition: color 0.2s ease;
+    }
+
+    .back-link:hover {
+      color: #bb5432;
+    }
+
+    /* Barra Superior de Filtros e Ordenação */
+    .filter-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      background-color: #122e23;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #234739;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (min-width: 768px) {
+      .filter-bar {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    .categories-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background-color: #0b2219;
+      border: 1px solid #234739;
+      color: #d1cdc7;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background-color: #bb5432;
+      border-color: #bb5432;
+      color: #ffffff;
+    }
+
+    .sort-select {
+      background-color: #0b2219;
+      border: 1px solid #234739;
+      color: #ffffff;
+      padding: 8px 12px;
+      border-radius: 4px;
+      outline: none;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    /* Grade de Produtos (Reutilizando estrutura da sua página principal) */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 30px;
+    }
+
+    .card-feature {
+      background-color: #122e23;
+      border-radius: 8px;
+      overflow: hidden;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      border: 1px solid transparent;
+      transition: border-color 0.2s ease;
+    }
+
+    .card-feature:hover {
+      border-color: #234739;
+    }
+
+    .card-feature img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 15px;
+    }
+
+    .card-feature h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .product-price {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .card-feature p {
+      color: #a49e97;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+
+    .btn-comprar {
+      width: 100%;
+      background-color: transparent;
+      color: #ffffff;
+      border: 1px solid #ffffff;
+      padding: 12px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-comprar:hover {
+      background-color: #ffffff;
+      color: #0b2219;
+    }
+
+    /* Card Esgotado / Indisponível */
+    .card-indisponivel {
+      background-color: #122e23;
+      border-radius: 8px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0.6;
+    }
+
+    .card-indisponivel img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 15px;
+    }
+
+    .card-indisponivel h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .card-indisponivel p {
+      color: #a49e97;
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+
+    .btn-indisponivel {
+      width: 100%;
+      background-color: #234739;
+      color: #a49e97;
+      border: none;
+      padding: 12px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: not-allowed;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="catalog-container">
+    
+    <header class="catalog-header">
+      <a href="index.html" class="back-link">← Voltar para a página inicial</a>
+      <h1 class="brand-title">Coleção Completa</h1>
+    </header>
+
+    <!-- Barra de Filtros -->
+    <div class="filter-bar">
+      <div class="categories-group">
+        <button class="filter-btn active">Todos</button>
+        <button class="filter-btn">Blusas</button>
+        <button class="filter-btn">Calças</button>
+        <button class="filter-btn">Camisetas</button>
+        <button class="filter-btn">Acessórios</button>
+      </div>
+      
+      <select class="sort-select">
+        <option value="recentes">Mais recentes</option>
+        <option value="preco-crescente">Preço: Menor para Maior</option>
+        <option value="preco-decrescente">Preço: Maior para Menor</option>
+      </select>
+    </div>
+
+    <!-- Grade de Produtos -->
+    <main class="products-grid">
+      
+      <!-- Card 1 -->
+      <article class="card-feature">
+        <img src="blusaesportiva.jpg" alt="Jaqueta Nylon Tech" />
+        <h3>Jaqueta Nylon Tech</h3>
+        <div class="product-price">R$ 489,00</div>
+        <p>Jaqueta acolchoada ultra volumosa e térmica. Possui gola alta, fechamento em zíper tratorado e punhos com elástico.</p>
+        <button class="btn-comprar">Comprar agora</button>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="card-feature">
+        <img src="blusadescolada.jpg" alt="Moletom Essential Hoodie" />
+        <h3>Moletom Essential Hoodie</h3>
+        <div class="product-price">R$ 399,00</div>
+        <p>Capuz em algodão premium, modelagem relaxada, bolso canguru e interior macio. Conforto diário.</p>
+        <button class="btn-comprar">Comprar agora</button>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="card-feature">
+        <img src="calçadescolada.jpg" alt="Calça Kove Shape" />
+        <h3>Calça Kove Shape</h3>
+        <div class="product-price">R$ 349,00</div>
+        <p>Calça Kove com elasticidade máxima e zero transparência. Possui corte ergonômico de alta sustentação.</p>
+        <button class="btn-comprar">Comprar agora</button>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="card-feature">
+        <img src="camisetaover.jpg" alt="Camiseta Outlaw Graphic" />
+        <h3>Camiseta Outlaw Graphic</h3>
+        <div class="product-price">R$ 199,00</div>
+        <p>Modelagem oversized pesada em algodão premium. Tem ombros caídos e uma estampa artística marcante nas costas.</p>
+        <button class="btn-comprar">Comprar agora</button>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="card-feature">
+        <img src="bone.jpg" alt="Boné Kove Origin" />
+        <h3>Boné Kove Origin</h3>
+        <div class="product-price">R$ 179,00</div>
+        <p>Modelo dad hat clássico em sarja resistente, aba curva e fecho traseiro com fivela de metal ajustável.</p>
+        <button class="btn-comprar">Comprar agora</button>
+      </article>
+
+      <!-- Card 6 (Esgotado) -->
+      <article class="card-indisponivel">
+        <img src="calçajeans.jpg" alt="Calça Shadow Contour" />
+        <h3>Calça Shadow Contour</h3>
+        <div class="product-price" style="color: #a49e97;">R$ 329,00</div>
+        <p>Produto esgotado. Entre na lista de espera para receber a notificação do próximo drop exclusivo.</p>
+        <button class="btn-indisponivel" disabled>Indisponível</button>
+      </article>
+
+    </main>
+
+  </div>
+
+</body>
+</html>

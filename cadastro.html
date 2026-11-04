@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro | Kove Luxury Streetwear</title>
+  
+  <!-- Importação das fontes (Inter / Roboto) -->
+  <link rel="preconnect" href="https://googleapis.com">
+  <link rel="preconnect" href="https://gstatic.com" crossorigin>
+  <link href="https://googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- CSS INTEGRADO -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #0b2219; /* Verde escuro idêntico ao fundo da loja */
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cadastro-container {
+      display: flex;
+      width: 100%;
+      max-width: 1100px;
+      min-height: 75vh;
+      background-color: #122e23; /* Tom de verde sutilmente mais claro para o painel */
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      margin: 20px;
+    }
+
+    /* Banner lateral esquerdo inspirado no visual urbano */
+    .cadastro-banner {
+      flex: 1;
+      background-image: url('blusadescolada.jpg'); /* Reutiliza a imagem principal do seu drop */
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      display: none; /* Oculto em dispositivos móveis */
+    }
+
+    @media (min-width: 768px) {
+      .cadastro-banner {
+        display: flex;
+      }
+    }
+
+    .banner-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(11, 34, 25, 0.3), #0b2219);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 40px;
+    }
+
+    .banner-overlay h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .banner-overlay p {
+      color: #d1cdc7; /* Tom de cinza claro/pastel */
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    /* Área do Formulário */
+    .cadastro-content {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+    }
+
+    .form-box {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .form-header {
+      margin-bottom: 30px;
+    }
+
+    .brand-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      color: #a49e97;
+      font-size: 0.9rem;
+    }
+
+    /* Inputs e agrupamentos */
+    .input-group {
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 15px;
+    }
+
+    .input-row .input-group {
+      flex: 1;
+    }
+
+    label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      color: #d1cdc7;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      background-color: #0b2219;
+      border: 1px solid #234739;
+      padding: 12px 16px;
+      border-radius: 6px;
+      color: #ffffff;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    input:focus {
+      border-color: #bb5432; /* Realce em laranja no campo ativo */
+    }
+
+    /* Checkbox dos termos */
+    .terms-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 25px;
+      font-size: 0.85rem;
+      color: #a49e97;
+    }
+
+    .terms-group input {
+      margin-top: 3px;
+      accent-color: #bb5432;
+    }
+
+    .terms-group a, .form-footer a {
+      color: #bb5432;
+      text-decoration: none;
+    }
+
+    .terms-group a:hover, .form-footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Botão de Envio Laranja */
+    .btn-submit {
+      width: 100%;
+      background-color: #bb5432; /* Cor exata do botão do cabeçalho */
+      color: #ffffff;
+      border: none;
+      padding: 14px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .btn-submit:hover {
+      background-color: #a14324;
+    }
+
+    /* Rodapé do Form */
+    .form-footer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #a49e97;
+    }
+
+    .form-footer p {
+      margin-bottom: 10px;
+    }
+
+    .back-home {
+      font-size: 0.85rem;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cadastro-container">
+    <!-- Lado Esquerdo: Banner de Marca -->
+    <div class="cadastro-banner">
+      <div class="banner-overlay">
+        <h2>Faça parte do acervo</h2>
+        <p>Receba acesso antecipado aos drops exclusivos e à alfaiataria técnica da Kove.</p>
+      </div>
+    </div>
+
+    <!-- Lado Direito: Caixa de Formulário -->
+    <div class="cadastro-content">
+      <div class="form-box">
+        <header class="form-header">
+          <h1 class="brand-title">KOVE</h1>
+          <p class="subtitle">Crie sua conta urbana de alta costura</p>
+        </header>
+
+        <form action="#" method="POST">
+          <div class="input-group">
+            <label for="nome">Nome Completo</label>
+            <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+          </div>
+
+          <div class="input-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+          </div>
+
+          <div class="input-row">
+            <div class="input-group">
+              <label for="senha">Senha</label>
+              <input type="password" id="senha" name="senha" placeholder="••••••••" required>
+            </div>
+            <div class="input-group">
+              <label for="confirmar-senha">Confirmar Senha</label>
+              <input type="password" id="confirmar-senha" name="confirmar-senha" placeholder="••••••••" required>
+            </div>
+          </div>
+
+          <div class="terms-group">
+            <input type="checkbox" id="termos" required>
+            <label for="termos">Aceito os <a href="#">Termos de Serviço</a> e a <a href="#">Política de Privacidade</a>.</label>
+          </div>
+
+          <button type="submit" class="btn-submit">Criar minha conta</button>
+        </form>
+
+        <footer class="form-footer">
+          <p>Já possui uma conta? <a href="#">Fazer Login</a></p>
+          <p class="back-home"><a href="index.html">← Voltar para a loja</a></p>
+        </footer>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
